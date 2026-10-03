@@ -57,8 +57,17 @@ export async function validateSessionToken(token: string): Promise<IUser | null>
 
   if (!session) return null;
 
-  const user = await User.findById(session.userId);
-  return user ? (user.toJSON() as IUser) : null;
+  const user = await User.findById(session.userId).lean();
+  if (!user) return null;
+
+  return {
+    _id: user._id.toString(),
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    createdAt: user.createdAt ? new Date(user.createdAt).toISOString() : new Date().toISOString(),
+    updatedAt: user.updatedAt ? new Date(user.updatedAt).toISOString() : new Date().toISOString(),
+  } as any;
 }
 
 export async function getCurrentUser(req?: NextRequest | Request): Promise<IUser | null> {

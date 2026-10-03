@@ -1,6 +1,13 @@
 import mongoose from "mongoose";
+import dns from "node:dns";
 import dotenv from "dotenv";
 dotenv.config();
+
+try {
+  dns.setServers(["8.8.8.8", "1.1.1.1"]);
+} catch (e) {
+  // Ignore if restricted
+}
 
 import { User } from "../src/models/User";
 import { Session } from "../src/models/Session";

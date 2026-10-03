@@ -1,7 +1,15 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+import dns from "node:dns";
 import dotenv from "dotenv";
 dotenv.config();
+
+// Ensure Node.js uses Google & Cloudflare DNS to reliably resolve MongoDB SRV records
+try {
+  dns.setServers(["8.8.8.8", "1.1.1.1"]);
+} catch (e) {
+  // Ignore if restricted
+}
 
 import { User } from "../src/models/User";
 import { Location } from "../src/models/Location";

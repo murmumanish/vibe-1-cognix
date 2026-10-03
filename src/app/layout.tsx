@@ -14,11 +14,19 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const user = await getCurrentUser();
+  const plainUser = user
+    ? {
+        _id: user._id.toString(),
+        name: user.name,
+        email: user.email,
+        role: user.role,
+      }
+    : null;
 
   return (
     <html lang="en">
       <body className="flex flex-col min-h-screen bg-slate-50">
-        <Navbar user={user} />
+        <Navbar user={plainUser as any} />
         <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
           {children}
         </main>

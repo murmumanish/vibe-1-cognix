@@ -1,4 +1,12 @@
 import mongoose from "mongoose";
+import dns from "node:dns";
+
+// Ensure Node.js uses Google & Cloudflare DNS to prevent local ISP SRV resolution drops
+try {
+  dns.setServers(["8.8.8.8", "1.1.1.1"]);
+} catch (e) {
+  // Ignore if restricted
+}
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
@@ -35,6 +43,10 @@ export async function connectToDatabase(): Promise<typeof mongoose> {
       maxPoolSize: 10,
       serverSelectionTimeoutMS: 8000,
     };
+
+    try {
+      dns.setServers(["8.8.8.8", "1.1.1.1"]);
+    } catch {}
 
     cached!.promise = mongoose.connect(MONGODB_URI, opts).then((m) => {
       return m;
