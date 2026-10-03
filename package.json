@@ -9,7 +9,7 @@
     "lint": "next lint",
     "seed": "tsx scripts/seed.ts",
     "setup-indexes": "tsx scripts/setup-indexes.ts",
-    "test": "vitest run"
+    "test": "vitest run --fileParallelism=false"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

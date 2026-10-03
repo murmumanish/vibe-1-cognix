@@ -98,9 +98,13 @@ describe("Rider Attendance, Manifest, and Vehicle Locking (Mandatory Cases 4, 5,
     const charlieTravelHistory = await Trip.find({
       _id: trip._id,
       status: "completed",
-      "manifest.userId": testContext.users.charlie._id,
-      "manifest.boardingStatus": "boarded",
-      "manifest.dropoffStatus": "dropped",
+      manifest: {
+        $elemMatch: {
+          userId: testContext.users.charlie._id,
+          boardingStatus: "boarded",
+          dropoffStatus: "dropped",
+        },
+      },
     });
     expect(charlieTravelHistory.length).toBe(0);
 

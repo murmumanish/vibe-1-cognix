@@ -19,8 +19,15 @@ describe("Routing & Location Data Configuration (Mandatory Cases 11 & 12)", () =
     const locA = testContext.locations.college;
     const locB = testContext.locations.station;
 
+    // Reset initial state for idempotency
+    await Location.findByIdAndUpdate(locA._id, {
+      coordinates: { x: 100, y: 150 },
+      coordinateVersion: 1,
+    });
+    const freshLocA = await Location.findById(locA._id);
+
     // 1. Calculate initial route
-    const { route: initialRoute, snapshot: initialSnapshot } = await calculateRoute(locA, locB);
+    const { route: initialRoute, snapshot: initialSnapshot } = await calculateRoute(freshLocA!, locB);
     expect(initialRoute.distance).toBeGreaterThan(0);
     expect(initialSnapshot.originVersion).toBe(1);
 
@@ -43,6 +50,8 @@ describe("Routing & Location Data Configuration (Mandatory Cases 11 & 12)", () =
   });
 
   it("Case 12: Adding a fourth location makes it available without editing UI or route logic", async () => {
+    await Location.deleteOne({ code: "RES" });
+
     // Dynamically insert fourth location
     const fourthLoc = await Location.create({
       code: "RES",

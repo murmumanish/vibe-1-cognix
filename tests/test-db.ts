@@ -1,16 +1,25 @@
+import "dotenv/config";
+import dns from "node:dns";
 import mongoose from "mongoose";
 import { Location } from "../src/models/Location";
 import { Vehicle } from "../src/models/Vehicle";
 import { User } from "../src/models/User";
+
+try {
+  dns.setServers(["8.8.8.8", "1.1.1.1"]);
+} catch (e) {
+  // ignore if restricted
+}
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
 export async function setupTestDatabase() {
   if (MONGODB_URI) {
     if (mongoose.connection.readyState === 0) {
-      await mongoose.connect(MONGODB_URI);
+      await mongoose.connect(MONGODB_URI, { serverSelectionTimeoutMS: 5000 });
     }
   }
+
 
   // Ensure test collections exist or mock them
   let college = await Location.findOne({ code: "COL" });
@@ -101,36 +110,32 @@ export async function setupTestDatabase() {
     });
   }
 
-  const alice = new User({
-    _id: new mongoose.Types.ObjectId(),
-    name: "Alice",
-    email: "alice@test.com",
-    role: "passenger",
-  });
-  const bob = new User({
-    _id: new mongoose.Types.ObjectId(),
-    name: "Bob",
-    email: "bob@test.com",
-    role: "passenger",
-  });
-  const charlie = new User({
-    _id: new mongoose.Types.ObjectId(),
-    name: "Charlie",
-    email: "charlie@test.com",
-    role: "passenger",
-  });
-  const rider1 = new User({
-    _id: new mongoose.Types.ObjectId(),
-    name: "Rider One",
-    email: "rider1@test.com",
-    role: "rider",
-  });
-  const rider2 = new User({
-    _id: new mongoose.Types.ObjectId(),
-    name: "Rider Two",
-    email: "rider2@test.com",
-    role: "rider",
-  });
+  const salt = "dummy_hash";
+  const alice = await User.findOneAndUpdate(
+    { email: "alice@test.com" },
+    { $setOnInsert: { name: "Alice", email: "alice@test.com", role: "passenger", passwordHash: salt } },
+    { upsert: true, new: true }
+  );
+  const bob = await User.findOneAndUpdate(
+    { email: "bob@test.com" },
+    { $setOnInsert: { name: "Bob", email: "bob@test.com", role: "passenger", passwordHash: salt } },
+    { upsert: true, new: true }
+  );
+  const charlie = await User.findOneAndUpdate(
+    { email: "charlie@test.com" },
+    { $setOnInsert: { name: "Charlie", email: "charlie@test.com", role: "passenger", passwordHash: salt } },
+    { upsert: true, new: true }
+  );
+  const rider1 = await User.findOneAndUpdate(
+    { email: "rider1@test.com" },
+    { $setOnInsert: { name: "Rider One", email: "rider1@test.com", role: "rider", passwordHash: salt } },
+    { upsert: true, new: true }
+  );
+  const rider2 = await User.findOneAndUpdate(
+    { email: "rider2@test.com" },
+    { $setOnInsert: { name: "Rider Two", email: "rider2@test.com", role: "rider", passwordHash: salt } },
+    { upsert: true, new: true }
+  );
 
   return {
     locations: { college, station, office },

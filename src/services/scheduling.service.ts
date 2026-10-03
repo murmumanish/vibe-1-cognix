@@ -327,6 +327,18 @@ export async function acceptRideRequest(
       return committedResult!;
     } catch (err: any) {
       if (err instanceof ConflictError) {
+        // Record clash outside of the aborted transaction so it persists in the database
+        try {
+          await RideRequest.findByIdAndUpdate(reqObjId, {
+            $push: {
+              clashHistory: {
+                riderId: riderObjId,
+                attemptedAt: new Date(),
+                reason: err.message,
+              },
+            },
+          });
+        } catch (_) {}
         throw err;
       }
       if (attempt >= maxRetries) {
