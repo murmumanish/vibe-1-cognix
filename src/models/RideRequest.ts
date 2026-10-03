@@ -45,7 +45,15 @@ const RideRequestSchema = new Schema<IRideRequest>(
     notes: { type: String, default: "" },
     status: {
       type: String,
-      enum: ["pending", "accepted", "cancelled", "clashed"],
+      enum: [
+        "pending",
+        "accepted",
+        "picking_up",
+        "in_progress",
+        "completed",
+        "cancelled",
+        "clashed",
+      ],
       default: "pending",
       required: true,
       index: true,

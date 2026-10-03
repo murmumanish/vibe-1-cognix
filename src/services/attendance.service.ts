@@ -50,6 +50,8 @@ export async function startPickup(
   trip.lifecycle.pickupStartedAt = new Date();
   await trip.save();
 
+  await RideRequest.findByIdAndUpdate(trip.requestId, { status: "picking_up" });
+
   await AuditEvent.create({
     actorId: riderObjId,
     entityType: "Trip",
@@ -141,7 +143,7 @@ export async function departTrip(
   if (unmarkedMembers.length > 0) {
     const names = unmarkedMembers.map((m) => m.name).join(", ");
     throw new ValidationError(
-      `Cannot depart: The following passengers have not been marked yet: ${names}. All passengers must be marked Boarded or Missed before departure.`
+      `Cannot depart: The following passengers have not been marked yet: ${names}. Please click 'Board' if they boarded, or 'Missed' if they are absent.`
     );
   }
 
@@ -165,6 +167,8 @@ export async function departTrip(
       { tripId: trip._id },
       { status: "completed" }
     );
+
+    await RideRequest.findByIdAndUpdate(trip.requestId, { status: "completed" });
 
     await AuditEvent.create({
       actorId: riderObjId,
@@ -191,6 +195,8 @@ export async function departTrip(
   trip.status = "in_progress";
   trip.lifecycle.departedAt = new Date();
   await trip.save();
+
+  await RideRequest.findByIdAndUpdate(trip.requestId, { status: "in_progress" });
 
   await AuditEvent.create({
     actorId: riderObjId,
@@ -319,6 +325,8 @@ export async function completeTrip(
   trip.completionReason = "normal";
   trip.lifecycle.completedAt = new Date();
   await trip.save();
+
+  await RideRequest.findByIdAndUpdate(trip.requestId, { status: "completed" });
 
   await AuditEvent.create({
     actorId: riderObjId,

@@ -76,7 +76,14 @@ export interface IManifestMember {
   dropoffMarkedBy?: Types.ObjectId | null;
 }
 
-export type RideRequestStatus = "pending" | "accepted" | "cancelled" | "clashed";
+export type RideRequestStatus =
+  | "pending"
+  | "accepted"
+  | "picking_up"
+  | "in_progress"
+  | "completed"
+  | "cancelled"
+  | "clashed";
 
 export interface IClashRecord {
   riderId: Types.ObjectId;

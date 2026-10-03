@@ -76,7 +76,10 @@ export default function RequestDetailPage({
             <h1 className="text-2xl font-bold text-slate-900">
               Request #{request._id.toString().slice(-6)}
             </h1>
-            <StatusBadge status={request.status} type="request" />
+            <StatusBadge
+              status={(request.tripId as any)?.status || request.status}
+              type="request"
+            />
           </div>
           <p className="text-xs text-slate-500 mt-1">
             Submitted {formatCompanyTime(request.createdAt)}
@@ -90,7 +93,9 @@ export default function RequestDetailPage({
           >
             &larr; Back to Dashboard
           </Link>
-          {(request.status === "pending" || request.status === "accepted") && (
+          {(request.status === "pending" ||
+            (request.status === "accepted" &&
+              (!request.tripId || (request.tripId as any)?.status === "accepted"))) && (
             <button
               onClick={handleCancel}
               className="text-xs font-semibold text-red-600 hover:text-red-700 bg-red-50 border border-red-200 px-3 py-1.5 rounded-lg transition"

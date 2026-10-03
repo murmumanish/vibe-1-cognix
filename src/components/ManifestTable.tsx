@@ -67,6 +67,26 @@ export function ManifestTable({
     }
   }
 
+  async function handleBatchBoarding(status: "boarded" | "missed") {
+    setError(null);
+    const unmarked = manifest.filter((m) => m.boardingStatus === "unmarked");
+    if (unmarked.length === 0) return;
+    try {
+      await Promise.all(
+        unmarked.map((m) =>
+          fetch(`/api/trips/${tripId}/passengers/${m.memberId}/boarding`, {
+            method: "PATCH",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ status }),
+          })
+        )
+      );
+      onRefresh();
+    } catch (err: any) {
+      setError(err.message || "Failed to update attendance.");
+    }
+  }
+
   return (
     <div className="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
       <div className="px-6 py-4 border-b border-gray-100 flex items-center justify-between">
@@ -83,6 +103,30 @@ export function ManifestTable({
           {manifest.length} Named Passenger{manifest.length === 1 ? "" : "s"}
         </div>
       </div>
+
+      {tripStatus === "picking_up" && isAssignedRider && (
+        <div className="bg-amber-50/70 border-b border-amber-200/80 px-6 py-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs">
+          <span className="text-amber-800">
+            <strong>Attendance Rule:</strong> Did someone not show up? Mark them <strong>Missed</strong>. To depart, every passenger must be marked either <em>Boarded</em> or <em>Missed</em>.
+          </span>
+          <div className="flex items-center space-x-2 shrink-0">
+            <button
+              type="button"
+              onClick={() => handleBatchBoarding("boarded")}
+              className="px-2.5 py-1 bg-green-600 hover:bg-green-700 text-white rounded font-medium shadow-sm transition"
+            >
+              Board All Unmarked
+            </button>
+            <button
+              type="button"
+              onClick={() => handleBatchBoarding("missed")}
+              className="px-2.5 py-1 bg-red-600 hover:bg-red-700 text-white rounded font-medium shadow-sm transition"
+            >
+              Mark Remaining Missed
+            </button>
+          </div>
+        </div>
+      )}
 
       {error && (
         <div className="m-4 p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-lg">

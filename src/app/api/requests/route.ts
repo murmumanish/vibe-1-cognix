@@ -35,6 +35,7 @@ export async function GET(req: NextRequest) {
     const requests = await RideRequest.find(query)
       .populate("filerId", "name email")
       .populate("assignedRiderId", "name email")
+      .populate("tripId", "status completionReason")
       .sort({ createdAt: -1 })
       .limit(100);
 

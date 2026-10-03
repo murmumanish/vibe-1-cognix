@@ -129,7 +129,10 @@ export default function PassengerDashboardPage() {
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <StatusBadge status={req.status} type="request" />
+                      <StatusBadge
+                        status={(req.tripId as any)?.status || req.status}
+                        type="request"
+                      />
                       {req.assignedRiderId && (
                         <div className="text-[11px] text-slate-500 mt-1">
                           Rider: {(req.assignedRiderId as any).name || "Assigned"}
@@ -143,7 +146,9 @@ export default function PassengerDashboardPage() {
                       >
                         Details
                       </Link>
-                      {(req.status === "pending" || req.status === "accepted") && (
+                      {(req.status === "pending" ||
+                        (req.status === "accepted" &&
+                          (!req.tripId || (req.tripId as any)?.status === "accepted"))) && (
                         <button
                           onClick={() => handleCancel(req._id.toString())}
                           className="text-xs font-medium text-red-600 hover:text-red-800 bg-red-50 px-2.5 py-1 rounded transition"

@@ -371,6 +371,12 @@ export async function cancelRideRequest(
     return { success: true, message: "Request was already cancelled." };
   }
 
+  if (["completed", "in_progress", "picking_up"].includes(request.status)) {
+    throw new ConflictError(
+      `Cannot cancel request. The trip is already ${request.status.replace("_", " ")}.`
+    );
+  }
+
   if (request.status === "accepted" && request.tripId) {
     const trip = await Trip.findById(request.tripId);
     if (trip && trip.status !== "accepted") {
