@@ -11,10 +11,10 @@ export default async function HomePage() {
       <div className="text-center space-y-4 mb-12">
         <div className="inline-flex items-center space-x-2 bg-indigo-50 border border-indigo-200 px-3 py-1 rounded-full text-xs font-semibold text-indigo-700">
           <span className="w-2 h-2 rounded-full bg-indigo-600 animate-ping"></span>
-          <span>Official XYZ Monolith &bull; Real-time Toto Dispatch</span>
+          <span>Official Lawazia Tech Monolith &bull; Real-time Toto Dispatch</span>
         </div>
         <h1 className="text-4xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
-          XYZ Company Internal Mobility Desk
+          Lawazia Tech Internal Mobility Desk
         </h1>
         <p className="text-lg text-slate-600 max-w-2xl mx-auto">
           Dedicated campus transit system connecting <span className="font-semibold text-slate-800">College</span>,{" "}

@@ -45,7 +45,7 @@ export default function LoginPage() {
     <div className="max-w-md mx-auto my-12 bg-white p-8 rounded-xl border border-slate-200 shadow-sm">
       <div className="text-center mb-6">
         <h2 className="text-2xl font-bold text-slate-900">Sign In</h2>
-        <p className="text-sm text-slate-500 mt-1">Access the XYZ Internal Mobility Desk</p>
+        <p className="text-sm text-slate-500 mt-1">Access the Lawazia Tech Mobility Desk</p>
       </div>
 
       {error && (
@@ -65,7 +65,7 @@ export default function LoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-            placeholder="e.g. employee@xyz.com"
+            placeholder="e.g. employee@lawaziatech.com"
           />
         </div>
 

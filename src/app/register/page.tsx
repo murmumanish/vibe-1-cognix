@@ -59,7 +59,7 @@ export default function RegisterPage() {
     <div className="max-w-md mx-auto my-12 bg-white p-8 rounded-xl border border-slate-200 shadow-sm">
       <div className="text-center mb-6">
         <h2 className="text-2xl font-bold text-slate-900">Create an Account</h2>
-        <p className="text-sm text-slate-500 mt-1">Register for XYZ Internal Mobility</p>
+        <p className="text-sm text-slate-500 mt-1">Register for Lawazia Tech Mobility</p>
       </div>
 
       {/* Role Selector Tabs */}
@@ -119,7 +119,7 @@ export default function RegisterPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
-            placeholder="alice@xyz.com"
+            placeholder="alice@lawaziatech.com"
           />
         </div>
 

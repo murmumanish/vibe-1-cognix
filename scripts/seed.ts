@@ -95,6 +95,11 @@ export async function seedDatabase() {
   const passwordHash = await bcrypt.hash("Password123!", salt);
 
   const testUsers = [
+    { name: "Alice Student", email: "alice@lawaziatech.com", role: "passenger" },
+    { name: "Bob Employee", email: "bob@lawaziatech.com", role: "passenger" },
+    { name: "Charlie Staff", email: "charlie@lawaziatech.com", role: "passenger" },
+    { name: "Rider Dave (Unit 1)", email: "rider1@lawaziatech.com", role: "rider" },
+    { name: "Rider Elena (Unit 2)", email: "rider2@lawaziatech.com", role: "rider" },
     { name: "Alice Student", email: "alice@xyz.com", role: "passenger" },
     { name: "Bob Employee", email: "bob@xyz.com", role: "passenger" },
     { name: "Charlie Staff", email: "charlie@xyz.com", role: "passenger" },
@@ -119,13 +124,13 @@ export async function seedDatabase() {
   }
 
   console.log("\n=======================================================");
-  console.log("Seed complete! Internal Mobility Desk is ready.");
+  console.log("Seed complete! Lawazia Tech Internal Mobility Desk is ready.");
   console.log("Test Login Credentials (Password: Password123!):");
-  console.log("  Passenger 1: alice@xyz.com");
-  console.log("  Passenger 2: bob@xyz.com");
-  console.log("  Passenger 3: charlie@xyz.com");
-  console.log("  Rider 1:     rider1@xyz.com");
-  console.log("  Rider 2:     rider2@xyz.com");
+  console.log("  Passenger 1: alice@lawaziatech.com  (or alice@xyz.com)");
+  console.log("  Passenger 2: bob@lawaziatech.com    (or bob@xyz.com)");
+  console.log("  Passenger 3: charlie@lawaziatech.com(or charlie@xyz.com)");
+  console.log("  Rider 1:     rider1@lawaziatech.com (or rider1@xyz.com)");
+  console.log("  Rider 2:     rider2@lawaziatech.com (or rider2@xyz.com)");
   console.log("=======================================================\n");
 }
 

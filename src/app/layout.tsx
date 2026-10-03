@@ -4,8 +4,8 @@ import { getCurrentUser } from "@/lib/auth";
 import { Navbar } from "@/components/Navbar";
 
 export const metadata: Metadata = {
-  title: "XYZ Internal Mobility Desk",
-  description: "Internal passenger transit desk and Toto dispatch for XYZ Company",
+  title: "Lawazia Tech - Internal Mobility Desk",
+  description: "Internal passenger transit desk and Toto dispatch for Lawazia Tech",
 };
 
 export default async function RootLayout({
@@ -31,7 +31,7 @@ export default async function RootLayout({
           {children}
         </main>
         <footer className="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500">
-          XYZ Company &bull; Internal Mobility Desk (Toto Fleet) &bull; Concurrency Protected Monolith
+          Lawazia Tech &bull; Internal Mobility Desk (Toto Fleet) &bull; Concurrency Protected Monolith
         </footer>
       </body>
     </html>

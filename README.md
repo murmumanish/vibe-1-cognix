@@ -1,15 +1,15 @@
-# XYZ Company - Internal Mobility Desk (Toto Fleet)
+# Lawazia Tech - Internal Mobility Desk (Toto Fleet)
 
 A complete, runnable, production-grade transit dispatch system built as a Next.js App Router monolith with MongoDB Atlas and Mongoose.
 
-The desk serializes scheduling for XYZ Company's single passenger vehicle (**Toto**) between three core campus locations: **College**, **Station**, and **Office**.
+The desk serializes scheduling for Lawazia Tech's single passenger vehicle (**Toto**) between three core campus locations: **College**, **Station**, and **Office**.
 
 ---
 
 ## 1. Architecture Overview
 
 ### Single-Vehicle Serialization Point
-XYZ Company operates exactly one physical Toto. To guarantee that:
+Lawazia Tech operates exactly one physical Toto. To guarantee that:
 1. Two conflicting requests cannot be double-booked, and
 2. Exactly one trip may be physically active at any time,
 
@@ -56,7 +56,7 @@ MONGODB_URI=mongodb+srv://desk_admin:YourSecurePassword@cluster0.mongodb.net/int
 
 # 2. Company Configuration
 COMPANY_TIMEZONE=Asia/Kolkata
-RIDER_INVITATION_CODE=TOTO_XYZ_2026
+RIDER_INVITATION_CODE=TOTO_LAWAZIA_2026
 
 # 3. Vehicle & Scheduling Parameters
 VEHICLE_SEAT_CAPACITY=4
@@ -93,11 +93,11 @@ npm run seed
 ```
 
 > **Pre-configured Test Accounts** (Password: `Password123!`):
-> - **Passenger 1**: `alice@xyz.com`
-> - **Passenger 2**: `bob@xyz.com`
-> - **Passenger 3**: `charlie@xyz.com`
-> - **Company Rider 1**: `rider1@xyz.com`
-> - **Company Rider 2**: `rider2@xyz.com`
+> - **Passenger 1**: `alice@lawaziatech.com` (or `alice@xyz.com`)
+> - **Passenger 2**: `bob@lawaziatech.com` (or `bob@xyz.com`)
+> - **Passenger 3**: `charlie@lawaziatech.com` (or `charlie@xyz.com`)
+> - **Company Rider 1**: `rider1@lawaziatech.com` (or `rider1@xyz.com`)
+> - **Company Rider 2**: `rider2@lawaziatech.com` (or `rider2@xyz.com`)
 
 ### Step 3: Run the Development Server
 ```bash
@@ -125,14 +125,14 @@ npm run build
 ## 6. Demo Walkthrough: Reproducing Core Checks
 
 ### Walkthrough 1: Concurrency Conflict & Clash Notification
-1. Open an Incognito window and log in as `rider1@xyz.com`.
-2. In regular browser, log in as `alice@xyz.com` and submit a request from **College &rarr; Station** for 2:00 PM.
-3. As `bob@xyz.com`, submit a request from **Station &rarr; Office** for the exact same time (2:00 PM).
+1. Open an Incognito window and log in as `rider1@lawaziatech.com`.
+2. In regular browser, log in as `alice@lawaziatech.com` and submit a request from **College &rarr; Station** for 2:00 PM.
+3. As `bob@lawaziatech.com`, submit a request from **Station &rarr; Office** for the exact same time (2:00 PM).
 4. As Rider 1, click **Accept & Schedule** on Alice's request &rarr; Request becomes `Accepted`, creating Trip #1.
-5. In another session as Rider 2 (`rider2@xyz.com`), attempt to accept Bob's request &rarr; Instantly rejected with a **`409 Conflict: Time conflict detected`** banner. Bob's request remains `Pending` with a recorded clash attempt in the clash log.
+5. In another session as Rider 2 (`rider2@lawaziatech.com`), attempt to accept Bob's request &rarr; Instantly rejected with a **`409 Conflict: Time conflict detected`** banner. Bob's request remains `Pending` with a recorded clash attempt in the clash log.
 
 ### Walkthrough 2: Group Manifest & Attendance Separation
-1. Log in as `alice@xyz.com` and book a group request for Alice, Bob, and Charlie.
+1. Log in as `alice@lawaziatech.com` and book a group request for Alice, Bob, and Charlie.
 2. Rider accepts and clicks **1. Start Pickup (Claim Vehicle)** &rarr; Toto is claimed (`operationalState: busy`).
 3. In the Manifest table:
    - Mark Alice & Bob: `Boarded`

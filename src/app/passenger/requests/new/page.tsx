@@ -323,7 +323,7 @@ export default function NewRideRequestPage() {
               <span>Important Single-Vehicle Policy</span>
             </h4>
             <p>
-              XYZ Company operates exactly one Toto vehicle. Submitting a request does not guarantee instant acceptance if a conflicting reservation exists. You will be notified immediately upon acceptance or clash.
+              Lawazia Tech operates exactly one Toto vehicle. Submitting a request does not guarantee instant acceptance if a conflicting reservation exists. You will be notified immediately upon acceptance or clash.
             </p>
           </div>
         </div>

@@ -112,7 +112,7 @@ export default function RiderDashboardPage() {
           </div>
           <p>{clashError}</p>
           <p className="text-xs text-red-600">
-            Under XYZ Company policy, exact same-time requests or infeasible transfer repositionings are rejected to protect Toto schedule integrity.
+            Under Lawazia Tech policy, exact same-time requests or infeasible transfer repositionings are rejected to protect Toto schedule integrity.
           </p>
         </div>
       )}

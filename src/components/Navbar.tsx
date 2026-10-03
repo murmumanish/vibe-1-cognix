@@ -33,11 +33,11 @@ export function Navbar({ user }: NavbarProps) {
           {/* Logo & Brand */}
           <div className="flex items-center space-x-3">
             <Link href="/" className="flex items-center space-x-2">
-              <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-indigo-600 text-white font-bold text-sm">
-                XYZ
+              <span className="flex items-center justify-center px-2 h-8 rounded-lg bg-indigo-600 text-white font-bold text-xs tracking-wider">
+                LT
               </span>
               <span className="font-bold text-lg tracking-tight hover:text-indigo-400 transition">
-                Internal Mobility Desk
+                Lawazia Tech Mobility Desk
               </span>
             </Link>
             <span className="hidden md:inline-block text-xs bg-amber-500/20 text-amber-300 border border-amber-500/30 px-2 py-0.5 rounded font-mono">
