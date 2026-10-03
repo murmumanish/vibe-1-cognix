@@ -4,34 +4,10 @@ import { Reservation } from "@/models/Reservation";
 import { Vehicle } from "@/models/Vehicle";
 import { Location } from "@/models/Location";
 import { calculateRoute } from "./routing.service";
+import { ItineraryItem, DayItinerarySummary } from "@/types";
 
-export interface ItineraryItem {
-  tripId: string;
-  requestId: string;
-  status: string;
-  pickupTime: Date;
-  originName: string;
-  destinationName: string;
-  passengers: number;
-  riderName?: string;
-  distance: number;
-  duration: number;
-  repositionDistance: number;
-  repositionDuration: number;
-  atRisk: boolean;
-  feasibilityNote?: string;
-}
+export type { ItineraryItem, DayItinerarySummary };
 
-export interface DayItinerarySummary {
-  date: string;
-  totalTrips: number;
-  totalPassengerDistance: number;
-  totalRepositionDistance: number;
-  totalEstimatedMinutes: number;
-  activeVehicleState: string;
-  items: ItineraryItem[];
-  optimizationNote: string;
-}
 
 export async function getDailyItinerary(dateStr?: string): Promise<DayItinerarySummary> {
   await connectToDatabase();

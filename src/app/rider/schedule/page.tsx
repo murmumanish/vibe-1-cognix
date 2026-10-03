@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { DayItinerarySummary } from "@/services/itinerary.service";
+import { DayItinerarySummary } from "@/types";
 import { formatCompanyTime } from "@/lib/date-utils";
 
 export default function RiderSchedulePage() {

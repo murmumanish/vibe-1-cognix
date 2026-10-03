@@ -229,3 +229,32 @@ export interface IRateLimit {
   count: number;
   resetAt: Date;
 }
+
+export interface ItineraryItem {
+  tripId: string;
+  requestId: string;
+  status: string;
+  pickupTime: Date;
+  originName: string;
+  destinationName: string;
+  passengers: number;
+  riderName?: string;
+  distance: number;
+  duration: number;
+  repositionDistance: number;
+  repositionDuration: number;
+  atRisk: boolean;
+  feasibilityNote?: string;
+}
+
+export interface DayItinerarySummary {
+  date: string;
+  totalTrips: number;
+  totalPassengerDistance: number;
+  totalRepositionDistance: number;
+  totalEstimatedMinutes: number;
+  activeVehicleState: string;
+  items: ItineraryItem[];
+  optimizationNote: string;
+}
+
